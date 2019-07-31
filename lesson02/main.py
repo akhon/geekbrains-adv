@@ -3,6 +3,7 @@
 import csv
 import chardet
 import json
+import yaml
 
 
 # cut leading and trailing spaces, return string
@@ -100,15 +101,47 @@ def subtask02():
     write_order_to_json('thing', '2', '20', 'Vasya', '2019-07-31')
     write_order_to_json('other thing', '5', '10', 'Petya', '2019-07-30')
 
-
+# done
 def subtask03():
-    write_order_to_json('thing', '2', '20', 'Vasya', '2019-07-31')
-    write_order_to_json('other thing', '5', '10', 'Petya', '2019-07-30')
+
+    # input data
+    my_dict = {
+        "list": [
+            "a",
+            "b",
+            "c"
+        ],
+        "int": [
+            1,
+            2,
+            3
+        ],
+        "dict": {
+            '163£': 163,
+            '8364€': 8364,
+            '9829♥': 9829
+        }
+    }
+
+    # write input dict into
+    with open('file.yaml', 'w') as f:
+        yaml.dump(my_dict, f, allow_unicode=True, default_flow_style=True)
+    f.close()
+
+    # load dict from file
+    with open('file.yaml') as f:
+        loaded_dict = yaml.load(f.read(), Loader=yaml.SafeLoader)
+    f.close()
+
+    if my_dict == loaded_dict:
+        print('yay! data is the same!')
+    else:
+        print('boo! data is not the same! :(')
 
 
 def main():
-    #subtask01()
-    #subtask02()
+    subtask01()
+    subtask02()
     subtask03()
 
 
