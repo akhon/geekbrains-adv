@@ -125,12 +125,12 @@ def subtask03():
 
     # write input dict into
     with open('file.yaml', 'w') as f:
-        yaml.dump(my_dict, f, allow_unicode=True, default_flow_style=True)
+        yaml.safe_dump(my_dict, f, allow_unicode=True, default_flow_style=True)
     f.close()
 
     # load dict from file
     with open('file.yaml') as f:
-        loaded_dict = yaml.load(f.read(), Loader=yaml.SafeLoader)
+        loaded_dict = yaml.safe_load(f.read())
     f.close()
 
     if my_dict == loaded_dict:
