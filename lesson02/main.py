@@ -53,13 +53,13 @@ def get_data():
                         os_type_list.append(list_reformat(items.split(':')[1:]))
         f.close()
 
-        main_data.append([list_to_str(os_prod_list), list_to_str(os_name_list), list_to_str(os_code_list), list_to_str(os_type_list)])
+        main_data.append([list_to_str(os_prod_list), list_to_str(os_name_list), list_to_str(os_code_list),
+                          list_to_str(os_type_list)])
 
-    return(main_data)
+    return (main_data)
 
 
 def write_data(f):
-
     data = get_data()
     f_writer = csv.writer(f)
     for row in data:
@@ -86,12 +86,12 @@ def write_order_to_json(item, quantity, price, buyer, date):
     with open('data/orders.json', 'r+') as f:
         objs = json.load(f)
 
-        for k,v in objs.items():
+        for k, v in objs.items():
             if k == 'orders':
                 v.append(new_order)
 
         f.seek(0)
-        json.dump({k:v}, f, sort_keys=True, indent=4)
+        json.dump({k: v}, f, sort_keys=True, indent=4)
 
     f.close()
 
@@ -101,9 +101,9 @@ def subtask02():
     write_order_to_json('thing', '2', '20', 'Vasya', '2019-07-31')
     write_order_to_json('other thing', '5', '10', 'Petya', '2019-07-30')
 
+
 # done
 def subtask03():
-
     # input data
     my_dict = {
         "list": [
