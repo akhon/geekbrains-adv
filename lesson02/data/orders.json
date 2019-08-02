@@ -1,0 +1,18 @@
+{
+    "orders": [
+        {
+            "buyer": "Vasya",
+            "date": "2019-07-31",
+            "item": "thing",
+            "price": "20",
+            "quantity": "2"
+        },
+        {
+            "buyer": "Petya",
+            "date": "2019-07-30",
+            "item": "other thing",
+            "price": "10",
+            "quantity": "5"
+        }
+    ]
+}
