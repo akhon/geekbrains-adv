@@ -2,6 +2,9 @@ import argparse
 import os, sys
 
 
+MESSAGE_SIZE = 1024
+LISTENERS = 5
+
 config = {
     'host': 'localhost',
     'port': 7777

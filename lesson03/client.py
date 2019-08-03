@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from socket import *
-from time import time
+from time import gmtime, strftime
 import pickle
 import helpers
 
@@ -21,14 +21,17 @@ class Client:
         except Exception as e:
             print(e)
 
+        # crafting presense message and sending to the server
         self.send(self.craft_presense())
+        response = self.receive()
+        self.parse(pickle.loads(response))
 
 
     def craft_presense(self):
         # TODO: move into Message class
         msg = {
             'action': 'presence',
-            'time': time(),
+            'time': gmtime(),
             'type': 'status',
             'user': {
                 'account_name': self.name,
@@ -43,11 +46,14 @@ class Client:
 
 
     def receive(self):
-        return self.socket.recv(1024)
+        return self.socket.recv(helpers.MESSAGE_SIZE)
 
 
     def parse(self, msg):
-        return msg.decode('ascii')
+        if msg['response'] == 200:
+            print('Server response OK at {}'.format(strftime("%a, %d %b %Y %H:%M:%S +0000", msg['time'])))
+        else:
+            print('Something went wrong')
 
 
     def close(self):

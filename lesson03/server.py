@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
 from socket import *
-from time import time
+from time import gmtime
 import pickle
 import helpers
-
-LISTENERS = 5
 
 
 class Server:
@@ -20,12 +18,12 @@ class Server:
         if msg['action'] == 'presence':
             reply = {
                 "response": 200,
-                "time": time()
+                "time": gmtime()
             }
         else:
             reply = {
                 "response": 400,
-                "time": time()
+                "time": gmtime()
             }
         return pickle.dumps(reply)
 
@@ -44,7 +42,7 @@ class Server:
     def create(self):
         try:
             self.socket.bind(('', self.port))
-            self.socket.listen(LISTENERS)
+            self.socket.listen(helpers.LISTENERS)
 
             print('Echo Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
             while True:
