@@ -14,17 +14,12 @@ class Server:
         self.socket = socket(AF_INET, SOCK_STREAM)
 
     def craft_reply(self, msg):
+        # only one reply for now
         if msg['action'] == 'presence':
-            reply = {
-                "response": 200,
-                "time": time()
-            }
+            reply = JimMessage(response=200, time=time())
         else:
-            reply = {
-                "response": 400,
-                "time": time()
-            }
-        return pickle.dumps(reply)
+            reply = JimMessage(response=400, time=time())
+        return pickle.dumps(reply.expand())
 
     def send_reply(self, client, reply):
         client.send(reply)

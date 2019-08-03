@@ -29,15 +29,17 @@ class Client:
         msg = JimMessage(action='presence', time=time(), type='status', user={'account_name': self.name, 'status': 'Yep, I am here!'})
         return pickle.dumps(msg.expand())
 
+    # send in bytes
     def send(self, msg):
         self.socket.send(bytes(msg))
 
+    # receive in bytes
     def receive(self):
         return self.socket.recv(MESSAGE_SIZE)
 
     def parse(self, msg):
-        if msg['response'] == 200:
-            print('Server response OK at {}'.format(strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
+        if msg['response'] in error_codes:
+            print('Server response {} at {}'.format(error_codes[msg['response']], strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
         else:
             print('Something went wrong')
 

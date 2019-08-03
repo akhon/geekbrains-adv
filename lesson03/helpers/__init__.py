@@ -11,6 +11,22 @@ config = {
     'port': 7777
 }
 
+error_codes = {
+    100: 'Basic Notification',
+    101: 'Important Notification',
+    200: 'OK',
+    201: 'Object Created',
+    202: 'Confirm',
+    400: 'Bad Request',
+    401: 'Auth Required',
+    402: 'Auth Failure',
+    403: 'Forbidden',
+    404: 'Not Found',
+    409: 'Auth Conflict',
+    410: 'User Offline',
+    500: 'Server Error'
+}
+
 
 class JimMessage:
     def __init__(self, **kwargs):
