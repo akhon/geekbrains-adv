@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from socket import *
-from console import args
+from helpers import args
 
 
 class Client:

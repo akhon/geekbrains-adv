@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from socket import *
-from console import args
+from helpers import args
 
 LISTENERS = 5
 
