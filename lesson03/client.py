@@ -1,38 +1,61 @@
 #!/usr/bin/env python3
 
-import argparse, os, sys
+import argparse, os, sys, time
 from socket import *
 
 
-def craft_message(msg):
-    return msg.encode('utf-8')
+class Client:
+    def __init__(self, addr, port, name):
+        self.name = name
+        self.addr = addr
+        self.port = port
+        self.socket = socket(AF_INET, SOCK_STREAM)
+
+    def connect(self):
+        try:
+            self.socket.connect((self.addr, self.port))
+            print("Successfully connected to {}:{}".format(self.addr, self.port))
+        except Exception as e:
+            print(e)
+        # {
+        #     "action": "presence",
+        #     "time": time.time()
+        #     "type": "status",
+        #     "user": {
+        #         "account_name": "C0deMaver1ck",
+        #         "status": "Yep, I am here!"
+        #     }
+        # }
+
+    def craft(self, msg):
+        return msg.encode('utf-8')
 
 
-def send_message(sock, msg):
-    sock.send(craft_message(msg))
-    return
+    def send(self):
+        self.socket(msg)
 
 
-def receive_message(s):
-    return parse_message(s.recv(1024))
+    def receive(self):
+        return self.socket.recv(1024)
 
 
-def parse_message(msg):
-    return msg.decode('ascii')
+    def parse(self, msg):
+        return msg.decode('ascii')
 
 
-def connect(args):
-    s = socket(AF_INET,SOCK_STREAM)
-    s.connect((args.addr, args.port))
-    msg = 'test'
-    send_message(s, msg)
-    t_msg = receive_message(s)
-    s.close()
-    print("Current time is {}".format(t_msg))
+    def close(self):
+        self.socket.close()
+
+
+    def whoami(self):
+        return self.name
+
 
 
 def main(args):
-    connect(args)
+    c = Client(args.addr, args.port, 'Skywalker')
+    c.connect()
+    print(c.whoami())
 
 
 if __name__ == '__main__':
