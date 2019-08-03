@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import argparse, os, sys, time
 from socket import *
+from console import args
 
 
 class Client:
@@ -53,28 +53,13 @@ class Client:
         return self.name
 
 
-def main(args):
-    c = Client(args.addr, args.port, 'Skywalker')
+def main():
+    console_args = args()
+    c = Client(console_args.addr, console_args.port, 'Skywalker')
     c.connect()
     print(c.whoami())
     c.close()
 
 
 if __name__ == '__main__':
-    # argparser
-    parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))
-    parser.add_argument('-p','--port',
-                        type=int,
-                        default=7777,
-                        help='Server Connection Port')
-    parser.add_argument('-a','--addr',
-                        type=str,
-                        default='localhost',
-                        help='Server Hostname/IP-address')
-    parser.add_argument('-c','--config',
-                        type=str,
-                        default='config.yml',
-                        help='Config File Full Path')
-    args = parser.parse_args()
-
-    main(args)
+    main()

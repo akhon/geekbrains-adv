@@ -1,6 +1,0 @@
-{
-    'connection': {
-        'port': 7777,
-        'host': 'localhost'
-    }
-}

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-import argparse, os, sys
 from socket import *
+from console import args
 
 LISTENERS = 5
 
@@ -44,25 +44,11 @@ class Server:
             print(e)
 
 
-def main(args):
-    s = Server(args.addr, args.port)
+def main():
+    console_args = args()
+    s = Server(console_args.addr, console_args.port)
     s.create()
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))
-    parser.add_argument('-p','--port',
-                        type=int,
-                        default=7777,
-                        help='Server Connection Port')
-    parser.add_argument('-a', '--addr',
-                        type=str,
-                        default='localhost',
-                        help='Server Address')
-    parser.add_argument('-c','--config',
-                        type=str,
-                        default='config.yml',
-                        help='Config File Full Path')
-    args = parser.parse_args()
-
-    main(args)
+    main()
