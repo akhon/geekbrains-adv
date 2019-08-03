@@ -1,6 +1,6 @@
 import argparse
 import os, sys
-
+from time import time
 
 MESSAGE_SIZE = 1024
 LISTENERS = 5
@@ -10,6 +10,20 @@ config = {
     'host': 'localhost',
     'port': 7777
 }
+
+
+class JimMessage:
+    def __init__(self, **kwargs):
+        self.raw = kwargs
+        self.raw['time'] = time()
+
+    @property
+    def action(self):
+        return self.raw['action'] if 'action' in self.raw else None
+
+    @property
+    def response(self):
+        return self.raw['response'] if 'response' in self.raw else None
 
 
 def args():

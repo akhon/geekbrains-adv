@@ -13,7 +13,6 @@ class Client:
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
 
-
     def connect(self):
         try:
             self.socket.connect((self.addr, self.port))
@@ -25,7 +24,6 @@ class Client:
         self.send(self.craft_presense())
         response = self.receive()
         self.parse(pickle.loads(response))
-
 
     def craft_presense(self):
         # TODO: move into Message class
@@ -40,14 +38,11 @@ class Client:
         }
         return pickle.dumps(msg)
 
-
     def send(self, msg):
         self.socket.send(bytes(msg))
 
-
     def receive(self):
         return self.socket.recv(MESSAGE_SIZE)
-
 
     def parse(self, msg):
         if msg['response'] == 200:
@@ -55,10 +50,8 @@ class Client:
         else:
             print('Something went wrong')
 
-
     def close(self):
         self.socket.close()
-
 
     def whoami(self):
         return self.name

@@ -13,7 +13,6 @@ class Server:
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
 
-
     def craft_reply(self, msg):
         if msg['action'] == 'presence':
             reply = {
@@ -27,17 +26,14 @@ class Server:
             }
         return pickle.dumps(reply)
 
-
     def send_reply(self, client, reply):
         client.send(reply)
         return
-
 
     def receive_message(self, client, addr):
         msg = pickle.loads(client.recv(MESSAGE_SIZE))
         print('Received message: {} from client: {}'.format(msg, addr))
         return msg
-
 
     def create(self):
         try:
