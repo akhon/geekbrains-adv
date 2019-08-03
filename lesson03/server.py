@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from socket import *
-from time import gmtime
+from time import time
 import pickle
 import helpers
 
@@ -18,12 +18,12 @@ class Server:
         if msg['action'] == 'presence':
             reply = {
                 "response": 200,
-                "time": gmtime()
+                "time": time()
             }
         else:
             reply = {
                 "response": 400,
-                "time": gmtime()
+                "time": time()
             }
         return pickle.dumps(reply)
 
@@ -34,7 +34,7 @@ class Server:
 
 
     def receive_message(self, client, addr):
-        msg = pickle.loads(client.recv(1000000))
+        msg = pickle.loads(client.recv(helpers.MESSAGE_SIZE))
         print('Received message: {} from client: {}'.format(msg, addr))
         return msg
 

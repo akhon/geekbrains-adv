@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from socket import *
-from time import gmtime, strftime
+from time import time, strftime, localtime
 import pickle
 import helpers
 
@@ -31,7 +31,7 @@ class Client:
         # TODO: move into Message class
         msg = {
             'action': 'presence',
-            'time': gmtime(),
+            'time': time(),
             'type': 'status',
             'user': {
                 'account_name': self.name,
@@ -51,7 +51,7 @@ class Client:
 
     def parse(self, msg):
         if msg['response'] == 200:
-            print('Server response OK at {}'.format(strftime("%a, %d %b %Y %H:%M:%S +0000", msg['time'])))
+            print('Server response OK at {}'.format(strftime("%a, %d %b %Y %H:%M:%S +0000", localtime(msg['time']))))
         else:
             print('Something went wrong')
 
