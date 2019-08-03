@@ -11,6 +11,7 @@ class Client:
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
 
+
     def connect(self):
         try:
             self.socket.connect((self.addr, self.port))
@@ -26,6 +27,7 @@ class Client:
         #         "status": "Yep, I am here!"
         #     }
         # }
+
 
     def craft(self, msg):
         return msg.encode('utf-8')
@@ -51,11 +53,11 @@ class Client:
         return self.name
 
 
-
 def main(args):
     c = Client(args.addr, args.port, 'Skywalker')
     c.connect()
     print(c.whoami())
+    c.close()
 
 
 if __name__ == '__main__':

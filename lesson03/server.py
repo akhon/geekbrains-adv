@@ -3,37 +3,50 @@
 import argparse, os, sys
 from socket import *
 
-
-def craft_message(msg):
-    return msg.encode('utf-8')
+LISTENERS = 5
 
 
-def send_message(sock, msg):
-    sock.send(craft_message(msg))
-    return
+class Server:
+    def __init__(self, addr, port):
+        # TODO: apply address
+        self.addr = addr
+        self.port = port
+        self.socket = socket(AF_INET, SOCK_STREAM)
 
 
-def receive_message(sock, addr):
-    msg = sock.recv(1000000).decode('utf-8')
-    print('Received message: {} from client: {}'.format(msg, addr))
-    return msg
+    def craft_message(self, msg):
+        return msg.encode('utf-8')
 
 
-def echo_server(args):
-    s = socket(AF_INET, SOCK_STREAM)
-    s.bind(('', args.port))
-    s.listen(5)
+    def send_message(self, client, msg):
+        client.send(self.craft_message(msg))
+        return
 
-    print('Echo Server on port {} has been created. Awaiting for connections!'.format(args.port))
-    while True:
-        client, addr = s.accept()
-        msg = receive_message(client, addr)
-        send_message(client, msg)
-        client.close()
+
+    def receive_message(self, client, addr):
+        msg = client.recv(1000000).decode('utf-8')
+        print('Received message: {} from client: {}'.format(msg, addr))
+        return msg
+
+
+    def create(self):
+        try:
+            self.socket.bind(('', self.port))
+            self.socket.listen(LISTENERS)
+
+            print('Echo Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
+            while True:
+                client, addr = self.socket.accept()
+                msg = self.receive_message(client, addr)
+                self.send_message(client, msg)
+                client.close()
+        except Exception as e:
+            print(e)
 
 
 def main(args):
-    echo_server(args)
+    s = Server(args.addr, args.port)
+    s.create()
 
 
 if __name__ == '__main__':
@@ -44,7 +57,7 @@ if __name__ == '__main__':
                         help='Server Connection Port')
     parser.add_argument('-a', '--addr',
                         type=str,
-                        default='config.yml',
+                        default='localhost',
                         help='Server Address')
     parser.add_argument('-c','--config',
                         type=str,
