@@ -11,6 +11,7 @@ config = {
     'port': 7777
 }
 
+# use from http import HTTPStatus?
 error_codes = {
     100: 'Basic Notification',
     101: 'Important Notification',
@@ -55,6 +56,7 @@ def args():
                         type=str,
                         default='localhost',
                         help='Server Hostname/IP-address')
+    # TODO: add configfile support
     parser.add_argument('-c', '--config',
                         type=str,
                         default='config.yml',
