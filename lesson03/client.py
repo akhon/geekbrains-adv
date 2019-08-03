@@ -3,7 +3,7 @@
 from socket import *
 from time import time, strftime, localtime
 import pickle
-import helpers
+from helpers import *
 
 
 class Client:
@@ -46,12 +46,12 @@ class Client:
 
 
     def receive(self):
-        return self.socket.recv(helpers.MESSAGE_SIZE)
+        return self.socket.recv(MESSAGE_SIZE)
 
 
     def parse(self, msg):
         if msg['response'] == 200:
-            print('Server response OK at {}'.format(strftime("%a, %d %b %Y %H:%M:%S +0000", localtime(msg['time']))))
+            print('Server response OK at {}'.format(strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
         else:
             print('Something went wrong')
 
@@ -65,7 +65,7 @@ class Client:
 
 
 def main():
-    console_args = helpers.args()
+    console_args = args()
     c = Client(console_args.addr, console_args.port, 'Skywalker')
     c.connect()
     c.close()

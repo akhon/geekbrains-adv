@@ -4,6 +4,7 @@ import os, sys
 
 MESSAGE_SIZE = 1024
 LISTENERS = 5
+DATE_TIME_FORMAT = "%a, %d %b %Y %H:%M:%S +0000"
 
 config = {
     'host': 'localhost',

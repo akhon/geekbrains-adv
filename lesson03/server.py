@@ -3,7 +3,7 @@
 from socket import *
 from time import time
 import pickle
-import helpers
+from helpers import *
 
 
 class Server:
@@ -34,7 +34,7 @@ class Server:
 
 
     def receive_message(self, client, addr):
-        msg = pickle.loads(client.recv(helpers.MESSAGE_SIZE))
+        msg = pickle.loads(client.recv(MESSAGE_SIZE))
         print('Received message: {} from client: {}'.format(msg, addr))
         return msg
 
@@ -42,7 +42,7 @@ class Server:
     def create(self):
         try:
             self.socket.bind(('', self.port))
-            self.socket.listen(helpers.LISTENERS)
+            self.socket.listen(LISTENERS)
 
             print('Echo Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
             while True:
@@ -56,7 +56,7 @@ class Server:
 
 
 def main():
-    console_args = helpers.args()
+    console_args = args()
     s = Server(console_args.addr, console_args.port)
     s.create()
 
