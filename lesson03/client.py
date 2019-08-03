@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 from socket import *
-from helpers import args
+import helpers
+from time import time
 
 
 class Client:
@@ -18,23 +19,28 @@ class Client:
             print("Successfully connected to {}:{}".format(self.addr, self.port))
         except Exception as e:
             print(e)
-        # {
-        #     "action": "presence",
-        #     "time": time.time()
-        #     "type": "status",
-        #     "user": {
-        #         "account_name": "C0deMaver1ck",
-        #         "status": "Yep, I am here!"
-        #     }
-        # }
+
+        self.send(self.craft_presense())
 
 
-    def craft(self, msg):
-        return msg.encode('utf-8')
+    def craft_presense(self):
+        # TODO: move into Message class
+        msg = {
+            'action': 'presence',
+            'time': time(),
+            'type': 'status',
+            'user': {
+                'account_name': self.name,
+                'status': 'Yep, I am here!'
+            }
+        }
+        print(msg)
+        print(bytes(msg))
+        return msg
 
 
-    def send(self):
-        self.socket(msg)
+    def send(self, msg):
+        self.socket.send(bytes(msg))
 
 
     def receive(self):
@@ -54,10 +60,9 @@ class Client:
 
 
 def main():
-    console_args = args()
+    console_args = helpers.args()
     c = Client(console_args.addr, console_args.port, 'Skywalker')
     c.connect()
-    print(c.whoami())
     c.close()
 
 

@@ -2,6 +2,12 @@ import argparse
 import os, sys
 
 
+config = {
+    'host': 'localhost',
+    'port': 7777
+}
+
+
 def args():
     parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))
     parser.add_argument('-p', '--port',

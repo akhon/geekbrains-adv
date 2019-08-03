@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from socket import *
+import helpers
 from helpers import args
 
 LISTENERS = 5
@@ -8,7 +9,7 @@ LISTENERS = 5
 
 class Server:
     def __init__(self, addr, port):
-        # TODO: apply address
+        # TODO: apply address usage
         self.addr = addr
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
@@ -45,7 +46,7 @@ class Server:
 
 
 def main():
-    console_args = args()
+    console_args = helpers.args()
     s = Server(console_args.addr, console_args.port)
     s.create()
 
