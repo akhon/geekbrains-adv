@@ -25,6 +25,9 @@ class JimMessage:
     def response(self):
         return self.raw['response'] if 'response' in self.raw else None
 
+    def expand(self):
+        return self.raw
+
 
 def args():
     parser = argparse.ArgumentParser(prog=os.path.basename(sys.argv[0]))

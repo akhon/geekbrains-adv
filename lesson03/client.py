@@ -26,17 +26,8 @@ class Client:
         self.parse(pickle.loads(response))
 
     def craft_presense(self):
-        # TODO: move into Message class
-        msg = {
-            'action': 'presence',
-            'time': time(),
-            'type': 'status',
-            'user': {
-                'account_name': self.name,
-                'status': 'Yep, I am here!'
-            }
-        }
-        return pickle.dumps(msg)
+        msg = JimMessage(action='presence', time=time(), type='status', user={'account_name': self.name, 'status': 'Yep, I am here!'})
+        return pickle.dumps(msg.expand())
 
     def send(self, msg):
         self.socket.send(bytes(msg))
