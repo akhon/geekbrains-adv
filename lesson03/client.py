@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
+import pickle
 from socket import *
 from time import time, strftime, localtime
-import pickle
 from helpers import *
 
 

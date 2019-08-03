@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
+import pickle
 from socket import *
 from time import time
-import pickle
 from helpers import *
 
 
