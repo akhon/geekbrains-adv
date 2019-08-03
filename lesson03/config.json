@@ -1,0 +1,6 @@
+{
+  'config': {
+    'port': 7777,
+    'host': 'localhost'
+  }
+}
