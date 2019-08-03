@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 from socket import *
-import helpers
 from time import time
+import pickle
+import helpers
 
 
 class Client:
@@ -34,9 +35,7 @@ class Client:
                 'status': 'Yep, I am here!'
             }
         }
-        print(msg)
-        print(bytes(msg))
-        return msg
+        return pickle.dumps(msg)
 
 
     def send(self, msg):

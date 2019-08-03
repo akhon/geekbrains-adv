@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 from socket import *
+from time import time
+import pickle
 import helpers
-from helpers import args
 
 LISTENERS = 5
 
@@ -15,17 +16,27 @@ class Server:
         self.socket = socket(AF_INET, SOCK_STREAM)
 
 
-    def craft_message(self, msg):
-        return msg.encode('utf-8')
+    def craft_reply(self, msg):
+        if msg['action'] == 'presence':
+            reply = {
+                "response": 200,
+                "time": time()
+            }
+        else:
+            reply = {
+                "response": 400,
+                "time": time()
+            }
+        return pickle.dumps(reply)
 
 
-    def send_message(self, client, msg):
-        client.send(self.craft_message(msg))
+    def send_reply(self, client, reply):
+        client.send(reply)
         return
 
 
     def receive_message(self, client, addr):
-        msg = client.recv(1000000).decode('utf-8')
+        msg = pickle.loads(client.recv(1000000))
         print('Received message: {} from client: {}'.format(msg, addr))
         return msg
 
@@ -39,7 +50,8 @@ class Server:
             while True:
                 client, addr = self.socket.accept()
                 msg = self.receive_message(client, addr)
-                self.send_message(client, msg)
+                reply = self.craft_reply(msg)
+                self.send_reply(client, reply)
                 client.close()
         except Exception as e:
             print(e)
