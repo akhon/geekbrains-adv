@@ -50,6 +50,6 @@ def args():
                         help='Server Connection Port')
     parser.add_argument('-a', '--addr',
                         type=str,
-                        default='localhost',
+                        default='',
                         help='Server Hostname/IP-address')
     return parser.parse_args()

@@ -8,7 +8,6 @@ from helpers import *
 
 class Server:
     def __init__(self, addr, port):
-        # TODO: apply address usage
         self.addr = addr
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
@@ -32,7 +31,7 @@ class Server:
 
     def create(self):
         try:
-            self.socket.bind(('', self.port))
+            self.socket.bind((self.addr, self.port))
             self.socket.listen(LISTENERS)
 
             print('Echo Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
