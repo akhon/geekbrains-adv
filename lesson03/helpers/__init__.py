@@ -6,7 +6,6 @@ MESSAGE_SIZE = 1024
 LISTENERS = 5
 DATE_TIME_FORMAT = "%a, %d %b %Y %H:%M:%S +0000"
 
-
 # use from http import HTTPStatus?
 error_codes = {
     100: 'Basic Notification',
