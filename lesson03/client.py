@@ -39,7 +39,7 @@ class Client:
 
     def parse(self, msg):
         if msg['response'] in error_codes:
-            print('Server response {} at {}'.format(error_codes[msg['response']], strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
+            print('Server response {}:{} at {}'.format(msg['response'], error_codes[msg['response']], strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
         else:
             print('Something went wrong')
 
