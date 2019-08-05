@@ -6,10 +6,6 @@ MESSAGE_SIZE = 1024
 LISTENERS = 5
 DATE_TIME_FORMAT = "%a, %d %b %Y %H:%M:%S +0000"
 
-config = {
-    'host': 'localhost',
-    'port': 7777
-}
 
 # use from http import HTTPStatus?
 error_codes = {
@@ -56,9 +52,4 @@ def args():
                         type=str,
                         default='localhost',
                         help='Server Hostname/IP-address')
-    # TODO: add configfile support
-    parser.add_argument('-c', '--config',
-                        type=str,
-                        default='config.yml',
-                        help='Config File Full Path')
     return parser.parse_args()
