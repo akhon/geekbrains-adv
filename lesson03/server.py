@@ -1,15 +1,36 @@
 #!/usr/bin/env python
 
 import pickle
+import yaml
 from socket import *
 from helpers import *
 
 
 class Server:
-    def __init__(self, addr, port):
+    def __init__(self, addr, port, configfile=None):
         self.addr = addr
         self.port = port
         self.socket = socket(AF_INET, SOCK_STREAM)
+
+        if configfile:
+            with open(configfile) as file:
+                file_config = yaml.safe_load(file)
+                config.update(file_config or {})
+
+            file.close()
+
+            try:
+                self.addr, self.port = config.get('host'), config.get('port')
+            except Exception as e:
+                print('ERROR: Problem with loading parameters from config file')
+                print(e)
+                exit(1)
+
+        if self.addr:
+            config['host'] = self.addr
+        if self.port:
+            config['port'] = self.port
+
 
     def craft_reply(self, msg):
         # only one reply for now
