@@ -24,6 +24,13 @@ error_codes = {
 }
 
 
+config = {
+    'host': '',
+    'port': 7777,
+    'buffersize': 1024
+}
+
+
 class JimMessage:
     def __init__(self, **kwargs):
         self.raw = kwargs
@@ -51,4 +58,8 @@ def args():
                         type=str,
                         default='',
                         help='Server Hostname/IP-address')
+    parser.add_argument('-c', '--config',
+                        type=str,
+                        default='',
+                        help='Use config file instead of vars')
     return parser.parse_args()

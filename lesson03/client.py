@@ -2,7 +2,7 @@
 
 import pickle
 from socket import *
-from time import time, strftime, localtime
+from time import strftime, localtime
 from helpers import *
 
 
