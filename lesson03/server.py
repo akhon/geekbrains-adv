@@ -54,7 +54,7 @@ class Server:
             self.socket.bind((self.addr, self.port))
             self.socket.listen(LISTENERS)
 
-            print('Echo Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
+            print('JiM Server on {}:{} has been created. Awaiting for connections!'.format(self.addr, self.port))
             while True:
                 client, addr = self.socket.accept()
                 msg = self.receive_message(client, addr)
