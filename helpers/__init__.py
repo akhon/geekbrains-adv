@@ -31,6 +31,32 @@ config = {
 }
 
 
+class Config:
+    def __init__(self, addr='', port=7777, buffersize=1024):
+        self.config = {
+            'host': addr,
+            'port': port,
+            'buffersize': buffersize
+        }
+
+    def read_configfile(self, configfile):
+        if configfile:
+            with open(configfile) as file:
+                file_config = yaml.safe_load(file)
+            file.close()
+
+            if file_config:
+                try:
+                    self.config.update(file_config)
+                except Exception as e:
+                    print('ERROR: Problem with loading parameters from config file')
+                    print(e)
+                    exit(1)
+
+    def get_config(self):
+        return self.config
+
+
 class JimMessage:
     def __init__(self, **kwargs):
         self.raw = kwargs
