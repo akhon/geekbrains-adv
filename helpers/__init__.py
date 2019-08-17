@@ -1,5 +1,5 @@
 import argparse
-import os, sys
+import os, sys, yaml
 from time import time
 
 MESSAGE_SIZE = 1024

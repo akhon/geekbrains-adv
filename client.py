@@ -56,6 +56,9 @@ class Client:
 def main():
     console_args = args()
     config = Config(console_args.addr, console_args.port, console_args.bufsize)
+    if console_args.config:
+        config.read_configfile(console_args.config)
+
     c = Client(config.get_config(), 'Skywalker')
     c.connect()
     c.close()

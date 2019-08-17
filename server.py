@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import pickle
-import yaml
 from socket import *
 from helpers import *
 
@@ -57,6 +56,9 @@ class Server:
 def main():
     console_args = args()
     config = Config(console_args.addr, console_args.port, console_args.bufsize)
+    if console_args.config:
+        config.read_configfile(console_args.config)
+
     s = Server(config.get_config())
     s.create()
 
