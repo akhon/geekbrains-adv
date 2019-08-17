@@ -64,11 +64,27 @@ class JimMessage:
 
     @property
     def action(self):
-        return self.raw['action'] if 'action' in self.raw else None
+        return self.raw.get('action', None)
 
     @property
     def response(self):
-        return self.raw['response'] if 'response' in self.raw else None
+        return self.raw.get('response', None)
+
+    @property
+    def get_username(self):
+        return self.raw['user'].get('account_name', None) if 'user' in self.raw else None
+
+    @property
+    def get_recipient(self):
+        return self.raw.get('to', None)
+
+    @property
+    def get_sender(self):
+        return self.raw.get('from', None)
+
+    @property
+    def get_message(self):
+        return self.raw.get('message', None)
 
     def expand(self):
         return self.raw
