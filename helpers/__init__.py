@@ -23,14 +23,6 @@ error_codes = {
     500: 'Server Error'
 }
 
-
-config = {
-    'addr': '',
-    'port': 7777,
-    'buffersize': 1024
-}
-
-
 class Config:
     def __init__(self, addr='', port=7777, buffersize=1024):
         self.config = {

@@ -6,26 +6,20 @@ from protocol import make_response
 
 @pytest.fixture
 def initial_action():
-    return 'test'
+    return 'presence'
 
 @pytest.fixture
 def initial_code():
     return 200
 
-@pytest.fixture
-def initial_data():
-    return 'Some data'
+def test_action_create_server():
+    console_args = args()
+    config = Config(console_args.addr, console_args.port, console_args.bufsize)
+    if console_args.config:
+        config.read_configfile(console_args.config)
 
-@pytest.fixture
-def initial_request(initial_action, initial_data):
-    return {
-        'action': initial_action,
-        'time': datetime.now().timestamp(),
-        'data': initial_data
-    }
-
-
-def test_action_make_response(initial_request, initial_code, initial_data, initial_action):
+    s = Server(config.get_config())
+    s.create()
     actual_response = make_response(initial_request, initial_code, initial_data)
     assert actual_response.get('action') == initial_action
 
