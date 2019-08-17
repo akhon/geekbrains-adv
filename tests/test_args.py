@@ -1,25 +1,6 @@
 import pytest
 from helpers import *
-
-
-@pytest.fixture()
-def initial_port():
-    return 7777
-
-
-@pytest.fixture()
-def initial_addr():
-    return ''
-
-
-@pytest.fixture()
-def initial_buffersize():
-    return 1024
-
-
-@pytest.fixture()
-def initial_configfile():
-    return 'config.yml'
+from . import initial_addr, initial_port, initial_buffersize, initial_configfile
 
 
 @pytest.fixture()
@@ -35,12 +16,3 @@ def test_parser(initial_args, initial_addr, initial_port, initial_buffersize, in
     assert console_args.port == initial_port
     assert console_args.bufsize == initial_buffersize
     assert console_args.config == initial_configfile
-
-
-def test_config(initial_addr, initial_port, initial_buffersize, initial_configfile):
-    config = Config()
-    config.read_configfile(initial_configfile)
-    assert config.get_addr() == initial_addr
-    assert config.get_port() == initial_port
-    assert config.get_buffersize() == initial_buffersize
-
