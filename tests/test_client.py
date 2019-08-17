@@ -1,8 +1,6 @@
 import pytest
 from datetime import datetime
 
-from protocol import make_response
-
 
 @pytest.fixture
 def initial_port():

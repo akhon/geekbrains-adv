@@ -48,6 +48,15 @@ class Config:
     def get_config(self):
         return self.config
 
+    def get_port(self):
+        return self.config['port']
+
+    def get_addr(self):
+        return self.config['addr']
+
+    def get_buffersize(self):
+        return self.config['buffersize']
+
 
 class JimMessage:
     def __init__(self, **kwargs):
