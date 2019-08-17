@@ -30,6 +30,10 @@ class Server:
         print('Received message: {} from client: {}'.format(msg, addr))
         return msg
 
+    def shutdown(self):
+        self.socket.close()
+        print('Graceful Shutdown')
+
     def create(self):
         try:
             self.socket.bind((self.addr, self.port))
@@ -42,6 +46,10 @@ class Server:
                 reply = self.craft_reply(msg)
                 self.send_reply(client, reply)
                 client.close()
+
+        except KeyboardInterrupt:
+                self.shutdown()
+
         except Exception as e:
             print(e)
 
