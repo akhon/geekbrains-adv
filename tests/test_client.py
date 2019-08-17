@@ -34,3 +34,5 @@ def test_code_make_response(initial_request, initial_code, initial_data):
 def test_data_make_response(initial_request, initial_code, initial_data):
     actual_response = make_response(initial_request, initial_code, initial_data)
     assert actual_response.get('data') == initial_data
+
+def test_client():
