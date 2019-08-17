@@ -24,7 +24,8 @@ class Client:
         # crafting presense message and sending to the server
         self.send(self.craft_presense())
         response = self.receive()
-        self.parse(pickle.loads(response))
+        return True if self.parse(pickle.loads(response)) else False
+
 
     def craft_presense(self):
         msg = JimMessage(action='presence', time=time(), type='status',
@@ -43,8 +44,10 @@ class Client:
         if msg['response'] in error_codes:
             print('Server response {}:{} at {}'.format(msg['response'], error_codes[msg['response']],
                                                        strftime(DATE_TIME_FORMAT, localtime(msg['time']))))
+            return True
         else:
             print('Something went wrong')
+            return False
 
     def close(self):
         self.socket.close()
