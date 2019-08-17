@@ -7,30 +7,12 @@ from helpers import *
 
 
 class Client:
-    def __init__(self, addr, port, name, configfile=None):
+    def __init__(self, config, name):
         self.name = name
-        self.addr = addr
-        self.port = port
+        self.addr = config['addr']
+        self.port = config['port']
+        self.buffersize = config['buffersize']
         self.socket = socket(AF_INET, SOCK_STREAM)
-
-        if configfile:
-            with open(configfile) as file:
-                file_config = yaml.safe_load(file)
-                config.update(file_config or {})
-
-            file.close()
-
-            try:
-                self.addr, self.port = config.get('host'), config.get('port')
-            except Exception as e:
-                print('ERROR: Problem with loading parameters from config file')
-                print(e)
-                exit(1)
-
-        if self.addr:
-            config['host'] = self.addr
-        if self.port:
-            config['port'] = self.port
 
     def connect(self):
         try:
@@ -73,7 +55,8 @@ class Client:
 
 def main():
     console_args = args()
-    c = Client(console_args.addr, console_args.port, 'Skywalker')
+    config = Config(console_args.addr, console_args.port, console_args.bufsize)
+    c = Client(config.get_config(), 'Skywalker')
     c.connect()
     c.close()
 
