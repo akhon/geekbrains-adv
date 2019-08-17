@@ -28,21 +28,19 @@ def initial_args(initial_addr, initial_port, initial_buffersize, initial_configf
             initial_configfile]
 
 
-def test_port(initial_port):
-    assert initial_port == 7777
-
-
 def test_parser(initial_args, initial_addr, initial_port, initial_buffersize, initial_configfile):
     sys.argv = initial_args
     console_args = args()
-    assert console_args.port == initial_port
     assert console_args.addr == initial_addr
+    assert console_args.port == initial_port
     assert console_args.bufsize == initial_buffersize
     assert console_args.config == initial_configfile
 
 
-def test_config():
+def test_config(initial_addr, initial_port, initial_buffersize, initial_configfile):
     config = Config()
-    assert config.get_port() == 7777
-    assert config.get_addr() == ''
-    assert config.get_buffersize() == 1024
+    config.read_configfile(initial_configfile)
+    assert config.get_addr() == initial_addr
+    assert config.get_port() == initial_port
+    assert config.get_buffersize() == initial_buffersize
+
