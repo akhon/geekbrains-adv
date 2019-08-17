@@ -25,7 +25,7 @@ error_codes = {
 
 
 config = {
-    'host': '',
+    'addr': '',
     'port': 7777,
     'buffersize': 1024
 }
@@ -34,7 +34,7 @@ config = {
 class Config:
     def __init__(self, addr='', port=7777, buffersize=1024):
         self.config = {
-            'host': addr,
+            'addr': addr,
             'port': port,
             'buffersize': buffersize
         }
@@ -84,6 +84,10 @@ def args():
                         type=str,
                         default='',
                         help='Server Hostname/IP-address')
+    parser.add_argument('-b', '--bufsize',
+                        type=int,
+                        default=1024,
+                        help='Buffer Size')
     parser.add_argument('-c', '--config',
                         type=str,
                         default='',

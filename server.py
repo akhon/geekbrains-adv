@@ -7,9 +7,10 @@ from helpers import *
 
 
 class Server:
-    def __init__(self, addr, port, configfile=None):
-        self.addr = addr
-        self.port = port
+    def __init__(self, config):
+        self.addr = config['addr']
+        self.port = config['port']
+        self.buffersize = config['buffersize']
         self.socket = socket(AF_INET, SOCK_STREAM)
 
     def craft_reply(self, msg):
@@ -47,7 +48,8 @@ class Server:
 
 def main():
     console_args = args()
-    s = Server(console_args.addr, console_args.port)
+    config = Config(console_args.addr, console_args.port, console_args.bufsize)
+    s = Server(config.get_config())
     s.create()
 
 
