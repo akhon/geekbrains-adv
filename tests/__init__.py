@@ -19,3 +19,13 @@ def initial_buffersize():
 @pytest.fixture()
 def initial_configfile():
     return 'config.yml'
+
+
+@pytest.fixture()
+def initial_username():
+    return 'TestUsername'
+
+
+@pytest.fixture()
+def initial_tcp_server_listeners():
+    return 1

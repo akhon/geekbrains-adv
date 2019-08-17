@@ -1,5 +1,5 @@
-import pytest
 from helpers import *
+from . import *
 
 
 @pytest.fixture()
@@ -10,11 +10,6 @@ def initial_action():
 @pytest.fixture()
 def initial_type():
     return 'status'
-
-
-@pytest.fixture()
-def initial_username():
-    return 'TestUsername'
 
 
 @pytest.fixture()
