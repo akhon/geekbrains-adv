@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import pickle
+import logging
 from socket import *
 from helpers import *
 
