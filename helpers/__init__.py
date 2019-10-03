@@ -1,5 +1,5 @@
 import argparse
-import os, sys
+import os, sys, yaml
 from time import time
 
 MESSAGE_SIZE = 1024
@@ -23,12 +23,39 @@ error_codes = {
     500: 'Server Error'
 }
 
+class Config:
+    def __init__(self, addr='', port=7777, buffersize=1024):
+        self.config = {
+            'addr': addr,
+            'port': port,
+            'buffersize': buffersize
+        }
 
-config = {
-    'host': '',
-    'port': 7777,
-    'buffersize': 1024
-}
+    def read_configfile(self, configfile):
+        if configfile:
+            with open(configfile) as file:
+                file_config = yaml.safe_load(file)
+            file.close()
+
+            if file_config:
+                try:
+                    self.config.update(file_config)
+                except Exception as e:
+                    print('ERROR: Problem with loading parameters from config file')
+                    print(e)
+                    exit(1)
+
+    def get_config(self):
+        return self.config
+
+    def get_port(self):
+        return self.config['port']
+
+    def get_addr(self):
+        return self.config['addr']
+
+    def get_buffersize(self):
+        return self.config['buffersize']
 
 
 class JimMessage:
@@ -38,11 +65,27 @@ class JimMessage:
 
     @property
     def action(self):
-        return self.raw['action'] if 'action' in self.raw else None
+        return self.raw.get('action', None)
 
     @property
     def response(self):
-        return self.raw['response'] if 'response' in self.raw else None
+        return self.raw.get('response', None)
+
+    @property
+    def recipient(self):
+        return self.raw.get('to', None)
+
+    @property
+    def sender(self):
+        return self.raw.get('from', None)
+
+    @property
+    def message(self):
+        return self.raw.get('message', None)
+
+    @property
+    def type(self):
+        return self.type
 
     def expand(self):
         return self.raw
@@ -58,6 +101,10 @@ def args():
                         type=str,
                         default='',
                         help='Server Hostname/IP-address')
+    parser.add_argument('-b', '--bufsize',
+                        type=int,
+                        default=1024,
+                        help='Buffer Size')
     parser.add_argument('-c', '--config',
                         type=str,
                         default='',
